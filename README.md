@@ -20,4 +20,4 @@ Note
 Ensure that the directories you choose are accessible and have appropriate permissions.
 Symbolic links are created from the source to the target directory, so any changes to the linked file will affect both locations.
 
-Feel free to use and modify this script as needed.
+Feel free to use and modify this script.
