@@ -6,7 +6,7 @@ import threading
 import tkinter as tk
 from tkinter import ttk, messagebox
 from concurrent.futures import ThreadPoolExecutor
-from tkfilebrowser import askopendirnames  # Import the custom file dialog
+from tkfilebrowser import askopendirnames
 
 # Function to check if the script is running with administrator privileges
 def is_admin():
@@ -14,6 +14,10 @@ def is_admin():
         return ctypes.windll.shell32.IsUserAnAdmin()
     except:
         return False
+
+# Function to run the script as an administrator
+def run_as_admin():
+    ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(['"' + arg + '"' for arg in sys.argv]), None, 1)
 
 # Function to create symbolic links
 def create_symbolic_links(source_paths, target_dir, progress_callback):
@@ -104,5 +108,5 @@ if __name__ == "__main__":
         root.geometry("350x150")
         root.mainloop()
     else:
-        # Re-run the program with admin rights
-        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
+        # If not admin, rerun the script with admin rights
+        run_as_admin()
